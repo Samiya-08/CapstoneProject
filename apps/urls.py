@@ -11,5 +11,8 @@ router.register('articles', views.ArticleViewSet, basename='article')
 router.register('comments', views.CommentViewSet, basename='comment')
 
 urlpatterns = [
+    path('auth/register/', views.RegisterView.as_view(), name='register'),
+    path('auth/profile/', views.ProfileView.as_view(), name='profile'),
+
     path('', include(router.urls)),
 ]
