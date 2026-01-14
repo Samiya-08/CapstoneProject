@@ -12,19 +12,12 @@ class UserSerializer(serializers.ModelSerializer):
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-    password2 = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password', 'password2']
-
-    def validate(self, data):
-        if data['password'] != data['password2']:
-            raise serializers.ValidationError("Passwords don't match!")
-        return data
+        fields = ['username', 'email', 'first_name', 'last_name', 'password']
 
     def create(self, validated_data):
-        validated_data.pop('password2')
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
@@ -72,6 +65,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = '__all__'
+        read_only_fields = ['views', 'slug', 'created_at', 'updated_at']  # User yubormasin!
 
 
 class CommentSerializer(serializers.ModelSerializer):

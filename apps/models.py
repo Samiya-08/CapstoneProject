@@ -55,7 +55,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='articles/', blank=True, null=True)
 
     is_published = models.BooleanField(default=True)
-    views = models.IntegerField(default=0)
+    views = models.IntegerField(default=0, editable=False)  # Avtomatik, user yubormasin!
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
